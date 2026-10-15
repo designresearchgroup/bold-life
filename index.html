@@ -23,10 +23,10 @@
 <meta name="twitter:image" content="https://theboldlifecoaching.com/img/og.png">
 <link rel="canonical" href="https://theboldlifecoaching.com/">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
-<meta name="theme-color" content="#2563EB">
+<meta name="theme-color" content="#DC343B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800&family=IBM+Plex+Mono:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700;1,900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"The Bold Life","description":"Leadership development and executive coaching for government agencies in Arizona and California, and 1:1 career-reinvention coaching for ambitious women. Woman-Owned Small Business led by an ICF Professional Certified Coach.","areaServed":["Arizona","California","United States"],"founder":{"@type":"Person","name":"Jamesyn Snitker","alternateName":"Jamie Snitker","jobTitle":"Executive &amp; Leadership Coach, ICF Professional Certified Coach (PCC)"},"knowsAbout":["Executive coaching","Leadership development","Career transition coaching","Women in leadership","Government workforce development","ICF coaching"],"url":"https://theboldlifecoaching.com/"}
 </script>
@@ -1519,7 +1519,33 @@ svg[data-pos="solo-c"] .vg-a,svg[data-pos="solo-c"] .vg-b{opacity:0;transform:sc
 @media(max-width:620px){.stick-txt{font-size:var(--text-sm);}}
 @media(max-width:460px){.stick-txt span{display:none;}}
 </style><style>
-/* ---- The Bold Life: page layout on top of HumanData DS v4 ---- */
+/* ===================================================================
+   THE BOLD LIFE — brand system. The HumanData DS v4 above is the
+   structural scaffold only; this layer makes the identity entirely hers:
+   burgundy (#DC343B) + black, Poppins + Montserrat, women-led. No blue.
+   These tokens override the DS defaults for this site; the DS block stays
+   verbatim so only the brand layer changes.
+   Source of truth: theboldlife.coach (brand red #DC343B, ink #1A1A1A,
+   Poppins body, Montserrat display). ================================= */
+:root{
+  --font:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --display:'Montserrat','Poppins',sans-serif;
+  --accent:#DC343B;--accent-hover:#B7272E;
+  --accent-lt:rgba(220,52,59,.15);--accent-dim:rgba(220,52,59,.08);--accent-text:#fff;
+  --bd-focus:rgba(220,52,59,.6);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){--bd-focus:rgba(220,52,59,.5);}
+}
+:root[data-theme="light"]{--bd-focus:rgba(220,52,59,.5);}
+/* Section tints — a warm burgundy -> wine -> rose family. Deliberately
+   no blue, green or cyan (those report state in the DS). */
+[data-tint="a"]{--tint:#DC343B;--tint-dim:rgba(220,52,59,.07);}
+[data-tint="b"]{--tint:#A3243A;--tint-dim:rgba(163,36,58,.08);}
+[data-tint="c"]{--tint:#6E1423;--tint-dim:rgba(110,20,35,.08);}
+[data-tint="d"]{--tint:#C04A6E;--tint-dim:rgba(192,74,110,.09);}
+
+/* ---- The Bold Life: page layout on top of the DS scaffold ---- */
 :root{--tbl-max:1100px;}
 .tbl-eyebrow{display:block;margin-bottom:var(--sp4);}
 
@@ -2066,6 +2092,13 @@ svg[data-pos="solo-c"] .vg-a,svg[data-pos="solo-c"] .vg-b{opacity:0;transform:sc
   sweep();
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
+  /* Deep links (e.g. /#government) and web-font reflow move the page after the
+     first sweep, so re-sweep once everything has settled and whenever the hash
+     changes — otherwise a section jumped straight to can stay hidden. */
+  window.addEventListener('load', onScroll);
+  window.addEventListener('hashchange', function(){ setTimeout(sweep, 50); });
+  setTimeout(sweep, 120);
+  setTimeout(sweep, 400);
 })();
 </script>
 </body>

@@ -4,8 +4,12 @@ A single-page platform for **The Bold Life** — *Career Reinvention & Leadershi
 Coaching for Ambitious Women*, founded by **Jamesyn (Jamie) Snitker**, ICF
 Professional Certified Coach (PCC). Woman-Owned Small Business.
 
-Built on the **HumanData Design System v4** (same tokens, type, and components as
-`humandata.id/ds`), under The Bold Life's own brand. Mobile-first and accessible.
+**The Bold Life's own brand system** — burgundy (`#DC343B`) + black, Poppins (body)
+and Montserrat (display), square corners, women-led — matching her live site
+`theboldlife.coach`. The HumanData DS v4 component architecture is used only as the
+structural scaffold (grids, cards, rules); a brand-token layer at the top of the page
+`<style>` overrides every colour and font so the identity is entirely hers. No blue.
+Mobile-first and accessible.
 
 - **Live (GitHub Pages):** set after first deploy — see *Deploy* below.
 - **Intended domain:** `theboldlifecoaching.com` (not yet registered).
@@ -65,9 +69,17 @@ the footer — plus the mailto in the nav) so inquiries land before the domain i
 
 ## Design system
 
-The embedded stylesheet is HumanData DS v4 verbatim (source of truth:
-`humandata.id/ds`). Keep brand changes in the small page-specific `<style>` block at
-the top of `index.html`, not in the DS block, so the system stays one source.
+Two layers, in order, inside `index.html`:
+
+1. **DS v4 scaffold** — the HumanData DS v4 stylesheet, embedded verbatim, used only
+   for structure (grid/card/rule components, spacing, responsive rules).
+2. **The Bold Life brand layer** — the first block of the page `<style>` overrides the
+   DS colour and font tokens: `--accent:#DC343B` (brand red), Poppins + Montserrat,
+   and a warm burgundy→wine→rose `data-tint` family. **No HumanData blue.**
+
+Keep brand changes in that brand layer, never in the DS block, so the scaffold stays a
+clean, swappable base. Source of truth for the brand itself is `theboldlife.coach`
+(red `#DC343B`, ink `#1A1A1A`, Poppins body, Montserrat display).
 
 ## Honesty note (important)
 
