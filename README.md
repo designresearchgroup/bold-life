@@ -63,9 +63,9 @@ link/preview still works.
 
 ## Contact / booking
 
-The CTAs currently point to `hello@theboldlifecoaching.com` as a placeholder. **Swap
-in Jamesyn's real working email** (two spots in `index.html` — the contact block and
-the footer — plus the mailto in the nav) so inquiries land before the domain is live.
+The CTAs point to **`Jamesyn@theboldlifecoaching.com`** (contact block + footer).
+Make sure that mailbox exists at the registrar/host for `theboldlifecoaching.com` so
+inquiries actually land.
 
 ## Design system
 
