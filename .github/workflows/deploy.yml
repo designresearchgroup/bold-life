@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+# A single static one-pager. A push to main publishes the site exactly as it sits
+# in the repo — no build step, so what you commit is what ships. workflow_dispatch
+# re-runs a deploy without a commit (publishes the same files).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GitHub Pages needs these to deploy from Actions.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race onto Pages. Don't cancel one in flight — let it finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Guardrails. A silent edit that breaks link previews, SEO, or the honesty
+      # posture is a worse thing to find in production than in CI.
+      - name: Sanity-check the page
+        run: |
+          test -f index.html || { echo "::error::index.html missing"; exit 1; }
+          test -f img/og.png || { echo "::error::img/og.png missing — link previews would 404"; exit 1; }
+          grep -q 'og:image' index.html || { echo "::error::no og:image"; exit 1; }
+          grep -q 'rel="canonical"' index.html || { echo "::error::no canonical"; exit 1; }
+          # Honesty: the caveat about claims must stay on the page.
+          grep -qi 'nothing here is a guarantee' index.html || { echo "::error::honesty caveat is missing"; exit 1; }
+          # Honesty: no unbacked promotion-rate claim may ship. The "85% promotion
+          # rate" figure needs documented data before it is used anywhere.
+          if grep -iEq 'promotion rate|[0-9]{2}% of (her|our|my)? ?clients|[0-9]{2}% (get|got|were|are) promoted' index.html; then
+            echo "::error::an unbacked promotion/outcome rate appears to be on the page — remove it or back it with documented data"; exit 1
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Publish the repo root as-is.
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
