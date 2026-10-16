@@ -1547,6 +1547,11 @@ svg[data-pos="solo-c"] .vg-a,svg[data-pos="solo-c"] .vg-b{opacity:0;transform:sc
 
 /* ---- The Bold Life: page layout on top of the DS scaffold ---- */
 :root{--tbl-max:1100px;}
+/* Real Bold Life logo (transparent PNG, black text) on a white circular chip so it
+   reads in both light and dark. Replaces the placeholder square mark. */
+.nav-logo-img{height:36px;width:36px;display:block;object-fit:contain;
+  background:#fff;border-radius:50%;padding:2px;flex-shrink:0;}
+.footer-brand .nav-logo-img{height:40px;width:40px;}
 .tbl-eyebrow{display:block;margin-bottom:var(--sp4);}
 
 /* Hero: two-track card sits beside the headline. */
@@ -1668,7 +1673,7 @@ svg[data-pos="solo-c"] .vg-a,svg[data-pos="solo-c"] .vg-b{opacity:0;transform:sc
 <nav class="nav">
   <div class="nav-inner">
     <a class="nav-logo" href="#top" aria-label="The Bold Life — home">
-      <span class="nav-logo-mark">TBL</span>
+      <img class="nav-logo-img" src="img/logo.png" alt="The Bold Life" width="36" height="36">
       <span class="nav-logo-text">THE&nbsp;BOLD&nbsp;LIFE</span>
     </a>
     <div class="nav-links">
@@ -2036,7 +2041,7 @@ svg[data-pos="solo-c"] .vg-a,svg[data-pos="solo-c"] .vg-b{opacity:0;transform:sc
     <div class="footer-top">
       <div>
         <div class="footer-brand">
-          <span class="nav-logo-mark">TBL</span>
+          <img class="nav-logo-img" src="img/logo.png" alt="The Bold Life" width="36" height="36">
           <span class="nav-logo-text">THE&nbsp;BOLD&nbsp;LIFE</span>
         </div>
         <p>
